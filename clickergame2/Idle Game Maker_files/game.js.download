@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="//cdn.familyzone.com/assets/bootstrap/3.1.1/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.familyzone.com/assets/bootstrap/3.1.1/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//cdn.familyzone.com/assets/font-awesome/4.7.0/font-awesome.min.css">
+    <link rel="icon" href="/static/images/fz_favicon.ico" type="image/x-icon"/>
+
+    <script src="//cdn.familyzone.com/assets/jquery/jquery-1.11.0.min.js"></script>
+    <script src="//cdn.familyzone.com/assets/jquery/jquery-migrate-1.2.1.min.js"></script>
+    <script src="//cdn.familyzone.com/assets/bootstrap/3.1.1/bootstrap.min.js"></script>
+</head>
+<body>
+
+<style>
+    .container {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 700px;
+        margin-top: 50px;
+    }
+</style>
+
+<div class="container">
+    <div class="header" style="clear: both;">
+        <h2 style="transform: translate(0%,50%);float:left;">Content Blocked</h2>
+        
+            <img class="logo pull-right" style="max-height: 50px;" src="/static/images/FZ_LOGO_BLUE_INLINE.svg">
+        
+    </div>
+    <div class="content" style="clear: both;">
+        <HR>
+        <div>
+            
+                Access to orteil.dashnet.org has been blocked by your Administrator [
+                Block Gaming excluding Staff].
+            
+        </div>
+        <div class="customMessage" style="margin-top: 20px;">
+            
+            
+        </div>
+        <br>
+        <div>
+
+            <table class="table table-bordered">
+                <tr>
+                    <td><b>Website </b></td>
+                    <td>orteil.dashnet.org</td>
+                </tr>
+
+                <tr>
+                    <td><b>Path </b></td>
+                    <td>/igm/game.js?v=10/21/2020 13:39:01</td>
+                </tr>
+
+                <tr>
+                    <td><b>Rule Type </b></td>
+                    <td> Standard
+                        Filtering </td>
+                </tr>
+
+                
+
+                
+                    <tr>
+                        <td><b>Policy Name</b></td>
+                        <td>Block Gaming excluding Staff</td>
+                    </tr>
+                
+
+                
+                    <tr>
+                        <td><b>Application/Category </b></td>
+                        <td>Online</td>
+                    </tr>
+                
+
+                <tr>
+                    <td><b>Your IP </b></td>
+                    <td>10.47.16.158</td>
+                </tr>
+
+                
+                    <tr>
+                        <td><b>Username </b></td>
+                        <td>18dsmith - <a href="http://autologout.linewize.net">Logout</a></td>
+                    </tr>
+                
+            </table>
+        </div>
+    </div>
+    <div id="downvote_info footer" style="clear: both;">
+        <hr>
+        If you believe this website has been incorrectly blocked, you can submit it <a id="downvote"
+                                                                                       href="#">here</a>
+        for verification to your administrator.
+    </div>
+
+    <div style="clear: both;">
+        <hr>
+        <form id="bypass_form" action="#">
+            Enter your bypass code to unblock this link: <input type="text" id="bypass_code" />
+            <input id="bypass_submit" type="submit" value="submit" /> <span id="bypass_result"></span>
+        </form>
+    </div>
+
+</div>
+<script type="text/javascript">
+    $("#downvote").click(function () {
+        var data = {
+            "deviceid": "wakatipu.high.school.nz",
+            "user": "18dsmith",
+            "rule": "Block Gaming excluding Staff",
+            "tagname": "Online",
+            "url": "orteil.dashnet.org"
+        };
+        $.post("/downvote", data, function () {
+            $("#downvote_info").html("The information is submitted and will be verified by your administrator");
+        });
+    });
+    $("#bypass_form").submit(function (event) {
+
+        $("#bypass_submit").prop("disabled", true);
+        $("#bypass_result").removeAttr("style");
+        $("#bypass_result").html("");
+
+        var bypass_code = $("#bypass_code").val();
+
+        var data = {
+            'deviceid': 'wakatipu.high.school.nz',
+            'username': '18dsmith',
+            'bypass_code': bypass_code,
+            'ip': '10.47.16.158',
+            'mac': '28:56:5a:4e:8c:e5',
+            'cid': ''
+        };
+
+        $.post("/bypass_active", data, function (response, status) {
+            var result = response['result'];
+            if (result == 'success') {
+                $("#bypass_result").html('<i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>');
+                var countDown = 10;
+                setTimeout(function() {
+                    $("#bypass_submit").prop("disabled", false);
+                    $("#bypass_result").css("color", "blue");
+                    $("#bypass_result").html("succeeded");
+                    window.location = "//orteil.dashnet.org//igm/game.js?v=10/21/2020 13:39:01";
+                }, 1000*countDown);
+            } else {
+               $("#bypass_result").css("color", "red");
+               $("#bypass_result").html("failed");
+               $("#bypass_submit").prop("disabled", false);
+            }
+        });
+        event.preventDefault();
+    });
+    jQuery('#bypass_code').keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+</script>
+</body>
+</html>
